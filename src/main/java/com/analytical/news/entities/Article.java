@@ -30,10 +30,13 @@ public class Article {
 	private String title;
 	private String description;
 	private String url;
-	private String image_url;
+	
+	@Column(name="image_url")
+	private String urlToImage;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private java.util.Date date_published;
+	@Column(name="date_published")
+	private java.util.Date publishedAt;
 
 	public long getId() {
 		return id;
@@ -84,19 +87,19 @@ public class Article {
 	}
 
 	public String getImage_url() {
-		return image_url;
+		return urlToImage;
 	}
 
-	public void setImage_url(String image_url) {
-		this.image_url = image_url;
+	public void setImage_url(String urlToImage) {
+		this.urlToImage = urlToImage;
 	}
 
 	public java.util.Date getDate_published() {
-		return date_published;
+		return publishedAt;
 	}
 
-	public void setDate_published(java.util.Date date_published) {
-		this.date_published = date_published;
+	public void setDate_published(java.util.Date publishedAt) {
+		this.publishedAt = publishedAt;
 	}
 	
 }
