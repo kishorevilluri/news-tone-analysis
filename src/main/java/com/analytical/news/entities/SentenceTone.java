@@ -15,7 +15,7 @@ public class SentenceTone {
 	
 	@Id
 	@Column(name="sentence_tone_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@ManyToOne

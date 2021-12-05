@@ -15,7 +15,7 @@ public class ArticleTone {
 	
 	@Id
 	@Column(name="article_tone_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@ManyToOne

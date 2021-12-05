@@ -13,7 +13,7 @@ public class Tone {
 	
 	@Id
 	@Column(name="tone_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String category;
