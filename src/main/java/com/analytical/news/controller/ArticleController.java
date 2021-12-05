@@ -1,15 +1,14 @@
 package com.analytical.news.controller;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.format.datetime.DateFormatter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -54,16 +53,15 @@ public class ArticleController {
 		headers.add("x-api-key", "e88b84b3405949d58d626e3d091404ca");
 		HttpEntity<Void> entity = new HttpEntity<>(headers);
 		ResponseEntity<NewsApiResponse> response = restTemplate.exchange(firstPageUrl, HttpMethod.GET, entity, NewsApiResponse.class,params);
-		List<Author> authorList = new ArrayList<>();
-		List<Source> sourceList = new ArrayList<>();
+		//List<Source> sourceList = new ArrayList<>();
 		List<Article> articleList = response.getBody().getArticles();
 		for(Article article : articleList) {
 			Author author = new Author();
 			if(null != article.getAuthor()){
 				String[] name = article.getAuthor().split(" ");
 				if(name.length > 1) {
-					author.setFirst_name(name[name.length-1]);
-					author.setLast_name(name[0]);
+					author.setFirst_name(name[0]);
+					author.setLast_name(name[name.length-1]);
 				}else {
 					author.setFirst_name(name[0]);
 					author.setLast_name("N/A");
@@ -73,25 +71,22 @@ public class ArticleController {
 				author.setFirst_name("Anonymous");
 			}
 			Example<Author> authorExample = Example.of(author); 
-			if(!authorList.contains(author) && !authorRepository.exists(authorExample)) {
-				authorList.add(author);
+			Optional<Author> dbAuthor = authorRepository.findOne(authorExample);
+			if(dbAuthor.isEmpty()) {
+				authorRepository.save(author);
+				article.setNewsAuthor(author);
 			}else {
-				article.setNewsAuthor(authorRepository.findOne(authorExample).get());
+				article.setNewsAuthor(dbAuthor.get());
 			}
 			Example<Source> sourceExample = Example.of(article.getSource());
-			if(!sourceList.contains(article.getSource()) && !sourceRepository.exists(sourceExample)) {
-				sourceList.add(article.getSource());
-			}else {
-				article.setSource(sourceRepository.findOne(sourceExample).get());
+			Optional<Source> dbSource = sourceRepository.findOne(sourceExample);
+			if(dbSource.isEmpty()) {
+				sourceRepository.save(article.getSource());
+			}else if(dbSource.isPresent()){
+				article.setSource(dbSource.get());
 			}
 			article.setDate_published(OffsetDateTime.parse(article.getPublishedAt()));
 			article.setUser_search_param(topic);
-		}
-		if(authorList.size() != 0) {
-			authorRepository.saveAll(authorList);
-		}
-		if(sourceList.size() != 0) {
-			sourceRepository.saveAll(sourceList);
 		}
 		articleRespository.saveAll(articleList);
 		return response.ok("Excellet!");
