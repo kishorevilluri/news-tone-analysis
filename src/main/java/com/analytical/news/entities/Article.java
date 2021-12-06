@@ -3,13 +3,16 @@ package com.analytical.news.entities;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -40,6 +43,12 @@ public class Article implements Serializable {
 	private String description;
 	private String url;
 	private String user_search_param;
+	
+	@Column(name="content",
+			columnDefinition = "CLOB NOT NULL")
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	private String content;
 	
 	@Column(name="image_url")
 	private String urlToImage;
@@ -145,6 +154,14 @@ public class Article implements Serializable {
 
 	public void setUser_search_param(String user_search_param) {
 		this.user_search_param = user_search_param;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	@Override

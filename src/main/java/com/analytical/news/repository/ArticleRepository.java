@@ -7,5 +7,5 @@ import com.analytical.news.entities.Article;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-	
+	public String findByUrl(String url);
 }
