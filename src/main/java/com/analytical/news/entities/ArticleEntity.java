@@ -19,22 +19,22 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="article", schema="news")
-public class Article implements Serializable {
+public class ArticleEntity implements Serializable {
 	
 	private static final long serialVersionUID = -1798070786993154676L;
 	
 	@Id
 	@Column(name = "article_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="source_id")
-	private Source source;
+	private SourceEntity source;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="author_id")
-	private Author newsAuthor;
+	private AuthorEntity newsAuthor;
 	
 	@Transient
 	private String author;
@@ -58,27 +58,27 @@ public class Article implements Serializable {
 	
 	private String publishedAt;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Source getSource() {
+	public SourceEntity getSource() {
 		return source;
 	}
 
-	public void setSource(Source source) {
+	public void setSource(SourceEntity source) {
 		this.source = source;
 	}
 
-	public Author getNewsAuthor() {
+	public AuthorEntity getNewsAuthor() {
 		return newsAuthor;
 	}
 
-	public void setNewsAuthor(Author newsAuthor) {
+	public void setNewsAuthor(AuthorEntity newsAuthor) {
 		this.newsAuthor = newsAuthor;
 	}
 
@@ -195,7 +195,7 @@ public class Article implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Article other = (Article) obj;
+		ArticleEntity other = (ArticleEntity) obj;
 		if (author == null) {
 			if (other.author != null)
 				return false;

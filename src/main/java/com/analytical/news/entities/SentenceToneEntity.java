@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="sentence_tone", schema="news")
-public class SentenceTone {
+public class SentenceToneEntity {
 	
 	@Id
 	@Column(name="sentence_tone_id")
@@ -20,11 +20,11 @@ public class SentenceTone {
 	
 	@ManyToOne
 	@JoinColumn(name="article_id")
-	private Article article;
+	private ArticleEntity article;
 	
 	@ManyToOne
 	@JoinColumn(name="tone_id")
-	private Tone tone;
+	private ToneEntity tone;
 	
 	private Double score;
 	private String sentence;
@@ -34,16 +34,16 @@ public class SentenceTone {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Article getArticle() {
+	public ArticleEntity getArticle() {
 		return article;
 	}
-	public void setArticle(Article article) {
+	public void setArticle(ArticleEntity article) {
 		this.article = article;
 	}
-	public Tone getTone() {
+	public ToneEntity getTone() {
 		return tone;
 	}
-	public void setTone(Tone tone) {
+	public void setTone(ToneEntity tone) {
 		this.tone = tone;
 	}
 	public Double getScore() {

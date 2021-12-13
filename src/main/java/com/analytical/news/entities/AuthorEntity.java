@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="author", schema="news")
-public class Author {
+public class AuthorEntity {
 	
 	@Id
 	@Column(name="author_id")
@@ -53,7 +53,7 @@ public class Author {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Author other = (Author) obj;
+		AuthorEntity other = (AuthorEntity) obj;
 		if (first_name == null) {
 			if (other.first_name != null)
 				return false;

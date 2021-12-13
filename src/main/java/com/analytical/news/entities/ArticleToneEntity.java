@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="article_name", schema="news")
-public class ArticleTone {
+@Table(name="article_tone", schema="news")
+public class ArticleToneEntity {
 	
 	@Id
 	@Column(name="article_tone_id")
@@ -20,11 +20,11 @@ public class ArticleTone {
 	
 	@ManyToOne
 	@JoinColumn(name="article_id")
-	private Article article;
+	private ArticleEntity article;
 	
 	@ManyToOne
 	@JoinColumn(name="tone_id")
-	private Tone tone;
+	private ToneEntity tone;
 	
 	private Double score;
 
@@ -36,19 +36,19 @@ public class ArticleTone {
 		this.id = id;
 	}
 
-	public Article getArticle() {
+	public ArticleEntity getArticle() {
 		return article;
 	}
 
-	public void setArticle(Article article) {
+	public void setArticle(ArticleEntity article) {
 		this.article = article;
 	}
 
-	public Tone getTone() {
+	public ToneEntity getTone() {
 		return tone;
 	}
 
-	public void setTone(Tone tone) {
+	public void setTone(ToneEntity tone) {
 		this.tone = tone;
 	}
 

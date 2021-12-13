@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="sources", schema="news")
-public class Source {
+public class SourceEntity {
 	
 	@Id
 	@Column(name="source_id")
@@ -52,7 +52,7 @@ public class Source {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Source other = (Source) obj;
+		SourceEntity other = (SourceEntity) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;

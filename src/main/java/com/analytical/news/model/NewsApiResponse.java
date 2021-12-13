@@ -2,12 +2,12 @@ package com.analytical.news.model;
 
 import java.util.List;
 
-import com.analytical.news.entities.Article;
+import com.analytical.news.entities.ArticleEntity;
 
 public class NewsApiResponse {
 	private String status;
 	private Double totalResults;
-	private List<Article> articles;
+	private List<ArticleEntity> articles;
 	public String getStatus() {
 		return status;
 	}
@@ -20,10 +20,10 @@ public class NewsApiResponse {
 	public void setTotalResults(Double totalResults) {
 		this.totalResults = totalResults;
 	}
-	public List<Article> getArticles() {
+	public List<ArticleEntity> getArticles() {
 		return articles;
 	}
-	public void setArticles(List<Article> articles) {
+	public void setArticles(List<ArticleEntity> articles) {
 		this.articles = articles;
 	}
 	
